@@ -23,6 +23,7 @@ const PUBLIC_KEY = crypto.subtle.importKey(
 const encoder = new TextEncoder()
 
 export default async function middleware(request: NextRequest) {
+    console.log(request);
     const timestamp = request.headers.get('X-Signature-Timestamp') || '';
     const signature = hex2bin(request.headers.get('X-Signature-Ed25519'));
     const bodyText = await request.text()
