@@ -1,4 +1,3 @@
-import { InteractionType, InteractionResponseType, MessageFlags } from 'discord-api-types';
 import { VercelRequest, VercelResponse } from '@vercel/node';
 
 
@@ -13,9 +12,9 @@ async function handleInteraction({ request }) {
     const body = JSON.parse(await request.text())
 
     switch (body.type) {
-        case InteractionType.Ping:
+        case 1:
             return jsonResponse({
-                type: InteractionResponseType.Pong
+                type: 1
             })
     }
 }
