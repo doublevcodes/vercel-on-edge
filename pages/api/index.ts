@@ -1,0 +1,29 @@
+import { InteractionType, InteractionResponseType, MessageFlags } from 'discord-api-types';
+import { VercelRequest, VercelResponse } from '@vercel/node';
+
+
+function jsonResponse(obj: any) {
+    return new Response(
+        obj,
+        { headers: {'Content-Type': 'application/json'} }
+    )
+}
+
+async function handleInteraction({ request }) {
+    const body = JSON.parse(await request.text())
+
+    switch (body.type) {
+        case InteractionType.Ping:
+            return jsonResponse({
+                type: InteractionResponseType.Pong
+            })
+    }
+}
+
+export default async function handleRequest(request: VercelRequest, response: VercelResponse) {
+    
+    if (request.method === "POST") {
+        return await handleInteraction({ request })
+    }
+
+}
